@@ -7,7 +7,9 @@ import jm.task.core.jdbc.util.Util;
 
 import java.sql.SQLException;
 import java.util.List;
+import lombok.*;
 
+@NoArgsConstructor
 public class UserServiceImpl extends Util implements UserService {
     private UserDao userDaoJDBC = new UserDaoJDBCImpl();
     @Override
@@ -15,7 +17,7 @@ public class UserServiceImpl extends Util implements UserService {
         userDaoJDBC.createUsersTable();
     }
     @Override
-    public void dropUsersTable() throws SQLException {
+    public void dropUsersTable() {
         userDaoJDBC.dropUsersTable();
     }
     @Override
@@ -24,7 +26,7 @@ public class UserServiceImpl extends Util implements UserService {
         System.out.println("User с именем " + name + "добавлен в базу данных");
     }
     @Override
-    public void removeUserById(long id) throws SQLException {
+    public void removeUserById(long id) {
         userDaoJDBC.removeUserById(id);
     }
     @Override
@@ -36,7 +38,7 @@ public class UserServiceImpl extends Util implements UserService {
         return users;
     }
     @Override
-    public void cleanUsersTable() throws SQLException {
+    public void cleanUsersTable() {
         userDaoJDBC.cleanUsersTable();
     }
 }
