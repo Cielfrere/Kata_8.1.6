@@ -13,7 +13,7 @@ import lombok.*;
 public class UserServiceImpl extends Util implements UserService {
     private UserDao userDaoJDBC = new UserDaoJDBCImpl();
     @Override
-    public void createUsersTable() throws SQLException {
+    public void createUsersTable() {
         userDaoJDBC.createUsersTable();
     }
     @Override
@@ -21,7 +21,7 @@ public class UserServiceImpl extends Util implements UserService {
         userDaoJDBC.dropUsersTable();
     }
     @Override
-    public void saveUser(String name, String lastName, byte age) throws SQLException {
+    public void saveUser(String name, String lastName, byte age) {
         userDaoJDBC.saveUser(name,lastName,age);
         System.out.println("User с именем " + name + "добавлен в базу данных");
     }
@@ -30,8 +30,13 @@ public class UserServiceImpl extends Util implements UserService {
         userDaoJDBC.removeUserById(id);
     }
     @Override
-    public List<User> getAllUsers() throws SQLException {
-        List<User> users =  userDaoJDBC.getAllUsers();
+    public List<User> getAllUsers() {
+        List<User> users = null;
+        try {
+            users = userDaoJDBC.getAllUsers();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         for (User user : users) {
             System.out.println(user);
         }
