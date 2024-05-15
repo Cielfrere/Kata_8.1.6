@@ -35,7 +35,7 @@ public class UserServiceImpl extends Util implements UserService {
         try {
             users = userDaoJDBC.getAllUsers();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Ошибка при получении пользователей");;
         }
         for (User user : users) {
             System.out.println(user);
