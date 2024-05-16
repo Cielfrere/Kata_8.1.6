@@ -6,7 +6,6 @@ import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.*;
 
@@ -32,12 +31,7 @@ public class UserServiceImpl extends Util implements UserService {
     }
     @Override
     public List<User> getAllUsers() {
-        List<User> users = null;
-        try {
-            users = userDaoJDBC.getAllUsers();
-        } catch (SQLException e) {
-            System.out.println("Ошибка при получении пользователей");
-        }
+        List<User> users = userDaoJDBC.getAllUsers();
         for (User user : users) {
             System.out.println(user);
         }

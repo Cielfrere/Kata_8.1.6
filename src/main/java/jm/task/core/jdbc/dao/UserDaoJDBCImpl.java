@@ -65,24 +65,22 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
     @Override
-    public List<User> getAllUsers() throws SQLException {
-        List<User> list = new ArrayList<>();
-        String sql = "SELECT * FROM Users";
-
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
         try (Connection connection = Util.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
+             Statement statement = connection.createStatement();
         ) {
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Users");
             while (resultSet.next()) {
-                long id = resultSet.getLong("id");
-                String name = resultSet.getString("name");
-                String lastName = resultSet.getString("lastName");
-                byte age = resultSet.getByte("age");
-
-                list.add(new User(id, name, lastName, age));
+                User user = new User(resultSet.getLong("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("lastName"), resultSet.getByte("age"));
+                users.add(user);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return list;
+        return users;
     }
     @Override
     public void cleanUsersTable() {
