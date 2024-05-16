@@ -6,12 +6,13 @@ import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.*;
 
 @NoArgsConstructor
 public class UserServiceImpl extends Util implements UserService {
-    private UserDao userDaoJDBC = new UserDaoJDBCImpl();
+    private final UserDao userDaoJDBC = new UserDaoJDBCImpl();
     @Override
     public void createUsersTable() {
         userDaoJDBC.createUsersTable();
@@ -35,7 +36,7 @@ public class UserServiceImpl extends Util implements UserService {
         try {
             users = userDaoJDBC.getAllUsers();
         } catch (SQLException e) {
-            System.out.println("Ошибка при получении пользователей");;
+            System.out.println("Ошибка при получении пользователей");
         }
         for (User user : users) {
             System.out.println(user);

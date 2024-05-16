@@ -4,6 +4,7 @@ import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import lombok.NoArgsConstructor;
 import java.sql.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
     @Override
-    public List<User> getAllUsers() throws  SQLException {
+    public List<User> getAllUsers() throws SQLException {
         List<User> list = new ArrayList<>();
         String sql = "SELECT * FROM Users";
 
@@ -80,8 +81,6 @@ public class UserDaoJDBCImpl implements UserDao {
 
                 list.add(new User(id, name, lastName, age));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return list;
     }
